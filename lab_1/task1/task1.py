@@ -1,4 +1,4 @@
-from utils import read_from_file, save_to_file
+from isb.lab_1.utils import read_from_file, save_to_file
 from constants import ORIGINAL_TEXT, KEY, ENCRYPT_TEXT
 from trithemius import encrypt_trithemius, decrypt_trithemius
 

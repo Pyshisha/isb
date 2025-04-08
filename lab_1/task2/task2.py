@@ -1,6 +1,38 @@
-from utils import read_from_file, read_json, save_to_file, save_dict_to_json
+from isb.lab_1.utils import read_from_file, read_json, save_to_file, save_dict_to_json
 from constants import ENCRYPTED_TEXT, DECRYPTED_TEXT, KEY, RUSSIAN_FREQUENCIES, MANUALLY_KEY
 from frequency_analysis import calculate_frequencies, generate_key_from_frequencies, decrypt_text
+
+
+def modify_key(key: dict) -> dict:
+    """
+    Позволяет изменять ключ через консоль.
+    Запрашивает у пользователя символы, которые он хочет изменить, и на что.
+    :param key: Текущий ключ (словарь с сопоставлением символов).
+    :return: Обновленный ключ.
+    """
+    updated_key = key.copy()
+
+    while True:
+        print("\nТекущий ключ:")
+        for char, ref_char in updated_key.items():
+            print(f"{char} -> {ref_char}")
+
+        old_char = input("\nВведите символ, который хотите изменить (или 'exit' для выхода): ").strip()
+
+        if old_char == 'exit':
+            break
+
+        if old_char not in updated_key:
+            print(f"Символ '{old_char}' не найден в ключе. Попробуйте снова.")
+            continue
+
+        new_char = input(f"Введите новый символ для '{old_char}': ").strip()
+
+        updated_key[old_char] = new_char
+
+        print(f"Символ '{old_char}' был заменен на '{new_char}'.\n")
+
+    return updated_key
 
 
 def main():
@@ -38,6 +70,16 @@ def main():
     if not manually_key:
         print("Ошибка: не удалось прочитать подобранный вручную ключ.")
         return
+
+    modify_choice = input("Хотите изменить ключ? (yes/no): ").strip().lower()
+
+    if modify_choice == 'yes':
+        updated_key = modify_key(manually_key)
+        print("\nОбновленный ключ:")
+        for char, ref_char in updated_key.items():
+            print(f"{char} -> {ref_char}")
+    else:
+        print("Ключ не был изменен.")
 
     decrypted_text_manually = decrypt_text(encrypted_text, manually_key)
     print("\nТекст, расшифрованный с помощью подобранного вручную ключа:")
