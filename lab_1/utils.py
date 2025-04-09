@@ -1,5 +1,4 @@
 import json
-import typing
 from typing import Union
 
 

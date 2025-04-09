@@ -1,4 +1,3 @@
-import constants
 from constants import ALPHABET, ALPHABET_SIZE
 
 
