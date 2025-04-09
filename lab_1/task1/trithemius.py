@@ -1,3 +1,4 @@
+import constants
 from constants import ALPHABET, ALPHABET_SIZE
 
 
@@ -11,7 +12,6 @@ def letter_to_number(letter: str) -> int:
 
 
 def number_to_letter(number: int) -> str:
-
     """
      Возвращает букву по номеру (от 1 до 33).
      :param number: Номер буквы.
@@ -94,7 +94,7 @@ def decrypt_trithemius(ciphertext: str, key: str) -> str:
     count = 0
 
     for c in ciphertext:
-        if count!=5:
+        if count != 5:
             no_grouped += c
             count += 1
         else:

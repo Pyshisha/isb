@@ -1,5 +1,7 @@
 import json
+import typing
 from typing import Union
+
 
 def read_from_file(filename: str) -> Union[str, None]:
     """

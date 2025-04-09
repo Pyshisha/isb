@@ -1,5 +1,8 @@
+import isb.lab_1.utils
 from isb.lab_1.utils import read_from_file, save_to_file
+import constants
 from constants import ORIGINAL_TEXT, KEY, ENCRYPT_TEXT
+import trithemius
 from trithemius import encrypt_trithemius, decrypt_trithemius
 
 

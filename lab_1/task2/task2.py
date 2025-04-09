@@ -1,5 +1,8 @@
+import isb.lab_1.utils
 from isb.lab_1.utils import read_from_file, read_json, save_to_file, save_dict_to_json
+import constants
 from constants import ENCRYPTED_TEXT, DECRYPTED_TEXT, KEY, RUSSIAN_FREQUENCIES
+import frequency_analysis
 from frequency_analysis import calculate_frequencies, decrypt_text
 
 
