@@ -1,6 +1,6 @@
 from isb.lab_1.utils import read_from_file, read_json, save_to_file, save_dict_to_json
-from constants import ENCRYPTED_TEXT, DECRYPTED_TEXT, KEY, RUSSIAN_FREQUENCIES, MANUALLY_KEY
-from frequency_analysis import calculate_frequencies, generate_key_from_frequencies, decrypt_text
+from constants import ENCRYPTED_TEXT, DECRYPTED_TEXT, KEY, RUSSIAN_FREQUENCIES
+from frequency_analysis import calculate_frequencies, decrypt_text
 
 
 def modify_key(key: dict) -> dict:
@@ -54,37 +54,27 @@ def main():
     for i, j in frequencies.items():
         print(f"{i} : {j}")
 
-    key = generate_key_from_frequencies(encrypted_text, rus_freq)
+    key = read_json(KEY)
 
-    print("Сгенерированный ключ:")
+    print("Ключ:")
     for k, v in key.items():
         print(f"{k} -> {v}")
-    save_dict_to_json(KEY, key)
-
-    decrypted_text = decrypt_text(encrypted_text, key)
-    print("\nТекст, расшифрованный с помощью сгенерированного ключа:")
-    print(decrypted_text)
-
-    manually_key = read_json(MANUALLY_KEY)
-
-    if not manually_key:
-        print("Ошибка: не удалось прочитать подобранный вручную ключ.")
-        return
 
     modify_choice = input("Хотите изменить ключ? (yes/no): ").strip().lower()
 
     if modify_choice == 'yes':
-        updated_key = modify_key(manually_key)
+        updated_key = modify_key(key)
         print("\nОбновленный ключ:")
         for char, ref_char in updated_key.items():
             print(f"{char} -> {ref_char}")
+        save_dict_to_json(KEY, key)
     else:
         print("Ключ не был изменен.")
 
-    decrypted_text_manually = decrypt_text(encrypted_text, manually_key)
+    decrypted_text = decrypt_text(encrypted_text, key)
     print("\nТекст, расшифрованный с помощью подобранного вручную ключа:")
-    print(decrypted_text_manually)
-    save_to_file(DECRYPTED_TEXT, decrypted_text_manually)
+    print(decrypted_text)
+    save_to_file(DECRYPTED_TEXT, decrypted_text)
 
 
 if __name__ == "__main__":

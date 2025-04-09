@@ -23,26 +23,6 @@ def calculate_frequencies(text: str) -> dict[str, float]:
     return sorted_frequencies
 
 
-def generate_key_from_frequencies(text: str, reference_frequencies: dict) -> dict:
-    """
-    Создает ключ, используя частоты символов и эталонные частоты русского алфавита.
-    :param text: Текст, для которого нужно найти ключ.
-    :param reference_frequencies: Эталонные частоты русского алфавита.
-    :return: Ключ.
-    """
-
-    text_frequencies = calculate_frequencies(text)
-
-    text_freq = list(text_frequencies.keys())
-    ref_freq = list(reference_frequencies.keys())
-
-    key = {}
-    for i in range(min(len(text_freq), len(ref_freq))):
-        key[text_freq[i]] = ref_freq[i]
-
-    return key
-
-
 def decrypt_text(text: str, key: dict) -> str:
     """
     Расшифровывает текст, используя ключ.
@@ -57,5 +37,3 @@ def decrypt_text(text: str, key: dict) -> str:
         else:
             result.append(char)
     return ''.join(result)
-
-
