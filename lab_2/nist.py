@@ -10,11 +10,13 @@ def bit_frequency_test(sequence) :
     sum_sequence = 0.0
 
     for bit in sequence:
-        if bit =="1":
+        if bit == "1":
             sum_sequence+=1
+        else:
+            sum_sequence -= 1
 
     sum_sequence /= math.sqrt(len(sequence))
-    p_value = math.erfc(sum_sequence / math.sqrt(2))
+    p_value = math.erfc(abs(sum_sequence) / math.sqrt(2))
 
     return p_value
 
@@ -76,13 +78,30 @@ def test_for_the_longest_sequence_of_ones(sequence):
 
         return p_value
 
-def tests(sequence):
+def tests(sequence, filename):
+    test_names=["Частотный побитовый тест","Тест на одинаковые подряд идущие биты","Тест на самую длинную последовательность единиц в блоке"]
+    p_values=[0,0,0]
 
-    p_value = bit_frequency_test(sequence)
-    conclusion = "Passed" if p_value >= 0.01 else "Failed"
+    p_values[0] = bit_frequency_test(sequence)
 
-    p_value = test_for_identical_consecutive_bits(sequence)
-    conclusion = "Passed" if p_value >= 0.01 else "Failed"
+    p_values[1] = test_for_identical_consecutive_bits(sequence)
 
-    p_value = test_for_the_longest_sequence_of_ones(sequence)
-    conclusion = "Passed" if p_value >= 0.01 else "Failed"
+    p_values[2] = test_for_the_longest_sequence_of_ones(sequence)
+    write_result(sequence, filename, test_names, p_values)
+
+def check_p_value(p_value):
+    conclusion = "Пройден" if p_value >= 0.01 else "Провален"
+    return conclusion
+
+def write_result(sequence, filename, test_names, p_values):
+
+    try:
+        with open(filename, mode='w', encoding="utf-8") as f:
+            f.write(f"Последовательность: {sequence}\n")
+            for i in range(3):
+                f.write(f"Тест: {test_names[i]}\n")
+                f.write(f"P: {p_values[i]}\n")
+                f.write(f"Итог: {check_p_value(p_values[i])}\n\n")
+        print(f"Содержимое успешно сохранено в файл {filename}.")
+    except Exception as e:
+        print(f"Произошла ошибка при сохранении в файл {filename}: {e}")
