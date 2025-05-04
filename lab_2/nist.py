@@ -52,7 +52,7 @@ def test_for_identical_consecutive_bits(sequence: str) -> float:
     number_of_sign_alternations = 0.0
 
     for i in range(len(sequence) - 1):
-        if sequence[i] == sequence[i + 1]:
+        if sequence[i] != sequence[i + 1]:
             number_of_sign_alternations += 1
 
     numerator = abs(
