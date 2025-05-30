@@ -1,9 +1,9 @@
 {
-    "initial_file":"inital.txt",
-    "encrypted_file":"encrypted.txt",
-    "decrypted_file":"decrypted.txt",
-    "symmetric_key":"symmetric.txt",
-    "public_key":"public.pem",
-    "secret_key":"secret.pem",
-    "encrypted_symmetric_key_file": "encrypted_symmetric_key.txt"
+    "initial_file":"isb/lab_3/initial.txt",
+    "encrypted_file":"isb/lab_3/encrypted.txt",
+    "decrypted_file":"isb/lab_3/decrypted.txt",
+    "symmetric_key":"isb/lab_3/symmetric.txt",
+    "public_key":"isb/lab_3/public.pem",
+    "secret_key":"isb/lab_3/secret.pem",
+    "encrypted_symmetric_key_file": "isb/lab_3/encrypted_symmetric_key.txt"
 }
